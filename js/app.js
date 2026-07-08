@@ -79,10 +79,42 @@ class AuthManager {
 
 document.addEventListener('DOMContentLoaded', () => {
     const ui = new UI();
-    const weatherAPI = new WeatherAPI(API_KEYS.openWeather);
-    const newsAPI = new NewsAPI(API_KEYS.news);
+    const weatherAPI = new WeatherAPI("");
+    const newsAPI = new NewsAPI("");
     const authManager = new AuthManager();
     const bookmarksManager = new BookmarksManager(authManager);
+
+    function getAPIKeys() {
+        const isDemo = localStorage.getItem('metrosky_demo_mode') === 'true';
+        if (isDemo) {
+            return {
+                openWeather: "YOUR_OPENWEATHER_API_KEY",
+                news: "YOUR_NEWS_API_KEY"
+            };
+        }
+        return {
+            openWeather: localStorage.getItem('openweather_api_key') || API_KEYS.openWeather,
+            news: localStorage.getItem('news_api_key') || API_KEYS.news
+        };
+    }
+
+    function refreshAPIInstances(showToast = false) {
+        const keys = getAPIKeys();
+        weatherAPI.apiKey = keys.openWeather;
+        newsAPI.apiKey = keys.news;
+
+        const isDemo = localStorage.getItem('metrosky_demo_mode') === 'true' || 
+                       keys.openWeather.includes("YOUR_") || 
+                       keys.news.includes("YOUR_");
+
+        if (isDemo && showToast) {
+            setTimeout(() => {
+                ui.showToastMessage("Running in Demo Mode (simulated data). Configure live keys in settings.", "success");
+            }, 1000);
+        }
+    }
+
+    refreshAPIInstances(true);
 
     // Callbacks for UI
     const isBookmarkedFn = (id) => bookmarksManager.isBookmarked(id);
@@ -239,6 +271,56 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (document.body.classList.contains('news-theme')) {
                 updateNewsBackground();
             }
+        });
+
+        // ==========================================
+        // API SETTINGS MODAL LOGIC
+        // ==========================================
+        const settingsBtn = document.getElementById('settings-btn');
+        const settingsModal = document.getElementById('settings-modal');
+        const closeSettingsBtn = document.getElementById('close-settings-btn');
+        const settingsForm = document.getElementById('settings-form');
+        const weatherKeyInput = document.getElementById('settings-weather-key');
+        const newsKeyInput = document.getElementById('settings-news-key');
+        const demoModeCheckbox = document.getElementById('settings-demo-mode');
+
+        settingsBtn.addEventListener('click', () => {
+            // Load current saved settings into form
+            weatherKeyInput.value = localStorage.getItem('openweather_api_key') || "";
+            newsKeyInput.value = localStorage.getItem('news_api_key') || "";
+            demoModeCheckbox.checked = localStorage.getItem('metrosky_demo_mode') === 'true';
+            ui.showSettingsModal();
+        });
+
+        closeSettingsBtn.addEventListener('click', () => ui.hideSettingsModal());
+
+        settingsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const weatherKey = weatherKeyInput.value.trim();
+            const newsKey = newsKeyInput.value.trim();
+            const demoMode = demoModeCheckbox.checked;
+
+            if (weatherKey) {
+                localStorage.setItem('openweather_api_key', weatherKey);
+            } else {
+                localStorage.removeItem('openweather_api_key');
+            }
+
+            if (newsKey) {
+                localStorage.setItem('news_api_key', newsKey);
+            } else {
+                localStorage.removeItem('news_api_key');
+            }
+
+            localStorage.setItem('metrosky_demo_mode', demoMode);
+
+            ui.hideSettingsModal();
+            ui.showToastMessage("Settings saved! Refreshing dashboard...", "success");
+
+            // Apply new keys and reload dashboard
+            refreshAPIInstances(false);
+            loadHomeWeather();
+            loadHomeNews();
         });
 
         // ==========================================
