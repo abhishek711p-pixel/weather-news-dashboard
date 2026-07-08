@@ -11,7 +11,12 @@ class NewsAPI {
         }
 
         try {
-            const response = await fetch(`${this.baseUrl}/top-headlines?country=us&category=${category}&apiKey=${this.apiKey}`);
+            let url = `${this.baseUrl}/top-headlines?country=us&category=${category}&apiKey=${this.apiKey}`;
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                url = 'https://corsproxy.io/?' + encodeURIComponent(url);
+            }
+            
+            const response = await fetch(url);
             
             if (!response.ok) {
                 console.warn(`News API call failed with status ${response.status}. Falling back to mock data.`);
@@ -33,7 +38,12 @@ class NewsAPI {
         }
 
         try {
-            const response = await fetch(`${this.baseUrl}/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&apiKey=${this.apiKey}`);
+            let url = `${this.baseUrl}/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&apiKey=${this.apiKey}`;
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                url = 'https://corsproxy.io/?' + encodeURIComponent(url);
+            }
+
+            const response = await fetch(url);
             
             if (!response.ok) {
                 console.warn(`News API search failed with status ${response.status}. Falling back to mock data.`);
