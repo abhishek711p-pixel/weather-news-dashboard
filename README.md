@@ -87,8 +87,8 @@ const API_KEYS = {
 | Name | GitHub |
 |------|--------|
 | Abhishek | [@abhishek711p-pixel](https://github.com/abhishek711p-pixel) |
-|  |  |
-|  |  |
+| Anshu Kumar | [@anshuks-byte](https://github.com/anshuks-byte) |
+| Utkarsh Verma | [@vutkarsh957-spec](https://github.com/vutkarsh957-spec) |
 
 ---
 
@@ -96,12 +96,12 @@ const API_KEYS = {
 
 - [x] Project structure setup
 - [x] Repo created and team added
-- [ ] HTML layout
-- [ ] CSS styling
-- [ ] Weather API integration
-- [ ] News API integration
-- [ ] Geolocation
-- [ ] Error handling
+- [x] HTML layout
+- [x] CSS styling
+- [x] Weather API integration
+- [x] News API integration
+- [x] Geolocation
+- [x] Error handling
 - [ ] Responsive design
 - [ ] Final testing
 
