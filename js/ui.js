@@ -20,11 +20,11 @@ class UI {
 
     renderWeather(data, prefix, forecastList = null) {
         document.getElementById(`${prefix}city`).textContent = data.city;
-        document.getElementById(`${prefix}temp`).textContent = Math.round(data.temp); 
+        document.getElementById(`${prefix}temp`).textContent = Math.round(data.temp);
         document.getElementById(`${prefix}condition`).textContent = data.condition;
         document.getElementById(`${prefix}humidity`).textContent = `${data.humidity}%`;
-        document.getElementById(`${prefix}wind`).textContent = `${data.windSpeed} km/h`; 
-        
+        document.getElementById(`${prefix}wind`).textContent = `${data.windSpeed} km/h`;
+
         document.getElementById(`${prefix}high`).textContent = Math.round(data.temp + 2);
         document.getElementById(`${prefix}low`).textContent = Math.round(data.temp - 3);
 
@@ -39,7 +39,7 @@ class UI {
             'Fog': 'ph-cloud-fog',
             'Haze': 'ph-cloud-fog'
         };
-        
+
         const iconClass = iconMap[data.mainCondition] || 'ph-cloud';
         document.getElementById(`${prefix}icon`).className = `ph-fill ${iconClass} w-icon-main`;
 
@@ -57,7 +57,7 @@ class UI {
         };
 
         const bgUrl = bgMap[data.mainCondition] || 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&q=80&w=800';
-        
+
         const cityEl = document.getElementById(`${prefix}city`);
         if (cityEl) {
             const cardEl = cityEl.closest('.weather-card');
@@ -75,9 +75,9 @@ class UI {
             forecastList.forEach(item => {
                 const dayItem = document.createElement('div');
                 dayItem.className = 'forecast-day-item';
-                
+
                 const dayIconClass = iconMap[item.condition] || 'ph-cloud';
-                
+
                 dayItem.innerHTML = `
                     <span class="forecast-day-name">${item.day}</span>
                     <i class="ph-fill ${dayIconClass} forecast-day-icon"></i>
@@ -108,10 +108,10 @@ class UI {
 
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
-        
+
         const iconClass = type === 'success' ? 'ph-check-circle' : 'ph-warning-circle';
         toast.innerHTML = `<i class="ph-fill ${iconClass}"></i> <span>${message}</span>`;
-        
+
         container.appendChild(toast);
 
         // Remove after 3 seconds
@@ -170,7 +170,7 @@ class UI {
             card.href = article.url;
             card.target = '_blank';
             card.rel = 'noopener noreferrer';
-            
+
             card.innerHTML = `
                 <img src="${imgUrl}" alt="News thumbnail" class="news-img" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=400'">
                 <div class="news-content">

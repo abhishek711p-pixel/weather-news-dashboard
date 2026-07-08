@@ -136,6 +136,7 @@
             <div class="header-actions">
                 <button class="icon-btn" id="theme-toggle-btn" title="Toggle Theme"><i class="ph ph-moon" id="theme-icon"></i></button>
                 <button class="icon-btn" id="header-bookmarks-btn" title="View Bookmarks"><i class="ph ph-bookmark-simple"></i></button>
+                <button class="icon-btn" id="settings-btn" title="API Settings"><i class="ph ph-gear"></i></button>
                 <button class="icon-btn profile-btn" title="Profile"><i class="ph ph-user-circle"></i></button>
             </div>
         </header>
@@ -416,6 +417,39 @@
                     <input type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Password" required>
                 </div>
                 <button type="submit" class="submit-btn" style="width: 100%;">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button id="close-settings-btn" class="icon-btn close-btn"><i class="ph ph-x"></i></button>
+            <div class="modal-header">
+                <i class="ph-fill ph-gear"></i>
+                <h2>API Settings</h2>
+                <p>Configure custom API keys. Leave blank to use Demo Mode (simulated data).</p>
+            </div>
+            <form id="settings-form" action="#" method="POST">
+                <div style="margin-bottom: 16px; text-align: left;">
+                    <label for="settings-weather-key" style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-secondary);">OpenWeather API Key</label>
+                    <div class="input-group">
+                        <i class="ph ph-key"></i>
+                        <input type="text" id="settings-weather-key" name="weatherKey" placeholder="Enter OpenWeather Key">
+                    </div>
+                </div>
+                <div style="margin-bottom: 24px; text-align: left;">
+                    <label for="settings-news-key" style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-secondary);">NewsAPI Key</label>
+                    <div class="input-group">
+                        <i class="ph ph-key"></i>
+                        <input type="text" id="settings-news-key" name="newsKey" placeholder="Enter NewsAPI Key">
+                    </div>
+                </div>
+                <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 10px; justify-content: flex-start;">
+                    <input type="checkbox" id="settings-demo-mode" name="demoMode" style="width: 18px; height: 18px; cursor: pointer; margin: 0;">
+                    <label for="settings-demo-mode" style="font-weight: 500; font-size: 0.95rem; color: var(--text-primary); cursor: pointer; margin: 0;">Enable offline Demo Mode (simulated data)</label>
+                </div>
+                <button type="submit" class="submit-btn" style="width: 100%;">Save & Refresh</button>
             </form>
         </div>
     </div>
