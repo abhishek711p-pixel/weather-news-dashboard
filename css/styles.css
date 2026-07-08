@@ -778,7 +778,8 @@ input:-webkit-autofill:active {
     display: flex;
     gap: 12px;
     overflow-x: auto;
-    padding-bottom: 8px;
+    padding: 6px 4px 8px 4px;
+    margin-top: -6px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--border-color) transparent;
@@ -811,8 +812,7 @@ input:-webkit-autofill:active {
 .forecast-day-item:hover {
     background: var(--accent-blue-light);
     border-color: var(--accent-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--accent-blue-light);
+    box-shadow: 0 0 10px var(--accent-blue-light);
 }
 
 .forecast-day-name {
