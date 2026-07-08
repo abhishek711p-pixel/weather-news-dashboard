@@ -207,7 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
             bgUrl = 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&q=80&w=1600';
         }
 
-        function updateNewsBackground() {
+        document.body.style.backgroundImage = `${overlay}, url('${bgUrl}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+    }
+
+    function updateNewsBackground() {
             if (!document.body.classList.contains('news-theme')) return;
 
             const isDark = document.documentElement.classList.contains('dark-mode');
@@ -501,5 +507,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 ui.showNewsError("Could not load background news.", 'search-news-loader', 'search-news-grid', 'search-news-error');
             }
         }
-    }
 });
